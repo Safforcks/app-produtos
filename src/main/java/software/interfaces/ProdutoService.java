@@ -1,4 +1,7 @@
 package software.interfaces;
 
-public interface ProdutoService {
+import software.entities.Produto;
+
+public interface ProdutoService extends BaseService<Produto>{
+
 }

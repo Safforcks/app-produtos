@@ -1,5 +1,7 @@
 package software.interfaces;
 
-public interface CategoriaService {
+import software.entities.Categoria;
+
+public interface CategoriaService extends BaseService<Categoria> {
 
 }
