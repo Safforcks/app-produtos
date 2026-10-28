@@ -1,17 +1,40 @@
 package software;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import software.entities.Categoria;
+import software.services.CategoriaServiceImpl;
+
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        var scanner = new Scanner(System.in);
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        System.out.println("OPÇÕES DE MENU:\n");
+        System.out.println("\t(1) CADASTRAR CATEGORIA");
+        System.out.println("\t(2) CONSULTAR CATEGORIAS");
+
+        System.out.print("\nINFORME A OPÇÃO DESEJADA: ");
+        var opcao = Integer.parseInt(scanner.nextLine());
+
+        var categoriaService = new CategoriaServiceImpl();
+
+        switch (opcao) {
+            case 1:
+                categoriaService.cadastrar(new Categoria());
+                break;
+            case 2:
+                var categorias = categoriaService.consultar();
+
+                for (var c: categorias) {
+                    System.out.println("...");
+                    System.out.println("ID.........: " + c.getId());
+                    System.out.println("NOME.......: " + c.getNome());
+                    System.out.println("DESCRIÇÃO..: " + c.getDescricao());
+                }
+
+                break;
+            default:
+                System.out.println("\nOPÇÃO INVÁLIDO!");
         }
     }
 }
