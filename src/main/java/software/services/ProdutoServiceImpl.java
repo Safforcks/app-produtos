@@ -4,8 +4,10 @@ import software.entities.Produto;
 import software.enums.TipoProduto;
 import software.interfaces.ProdutoService;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
@@ -73,6 +75,38 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     @Override
     public List<Produto> consultar() {
-        return List.of();
+
+        System.out.println("\nCONSULTA DE PRODUTOS:\n");
+
+        var produtos = new ArrayList<Produto>();
+
+        try (var scanner = new Scanner(new File(arquivo))){
+
+            while (scanner.hasNextLine()) {
+
+                var linha =  scanner.nextLine().trim();
+
+                if (linha.startsWith("...")) linha = linha.substring(3).trim();
+                if (linha.isEmpty()) continue;
+
+                var produto = new Produto();
+
+                produto.setId(UUID.fromString(linha));
+                produto.setNome(scanner.nextLine());
+                produto.setPreco(Double.parseDouble(scanner.nextLine()));
+                produto.setQuantidade(Integer.parseInt(scanner.nextLine()));
+                produto.setTipo(TipoProduto.valueOf(scanner.nextLine()));
+                produto.getCategoria().setId(UUID.fromString(scanner.nextLine()));
+                produto.getCategoria().setNome(scanner.nextLine());
+                produto.getCategoria().setDescricao(scanner.nextLine());
+
+                produtos.add(produto);
+            }
+
+        } catch (Exception e) {
+            System.out.println("\nERRO AO LER ARQUIVO: " + e.getMessage());
+        }
+
+        return produtos;
     }
 }
