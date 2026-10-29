@@ -1,5 +1,6 @@
 package software.services;
 
+import software.entities.Categoria;
 import software.entities.Produto;
 import software.enums.TipoProduto;
 import software.interfaces.ProdutoService;
@@ -17,22 +18,20 @@ public class ProdutoServiceImpl implements ProdutoService {
     private final String arquivo = "produtos.txt";
 
     @Override
-    public void cadastrar(Produto entidade) {
+    public void cadastrar(Produto produto) {
 
-
-        var produto = new Produto();
         produto.setId(UUID.randomUUID());
 
         System.out.println("\nCADASTRO DE PRODUTO:\n");
         var scanner = new Scanner(System.in);
 
-        System.out.println("INFORME O NOME........: ");
+        System.out.print("INFORME O NOME........: ");
         produto.setNome(scanner.nextLine());
 
-        System.out.println("INFORME O PREÇO.......: ");
+        System.out.print("INFORME O PREÇO.......: ");
         produto.setPreco(Double.parseDouble(scanner.nextLine()));
 
-        System.out.println("INFORME A QUANTIDADE..: ");
+        System.out.print("INFORME A QUANTIDADE..: ");
         produto.setQuantidade(Integer.parseInt(scanner.nextLine()));
 
         System.out.println("TIPO DE PRODUTO:");
@@ -90,6 +89,7 @@ public class ProdutoServiceImpl implements ProdutoService {
                 if (linha.isEmpty()) continue;
 
                 var produto = new Produto();
+                produto.setCategoria(new Categoria());
 
                 produto.setId(UUID.fromString(linha));
                 produto.setNome(scanner.nextLine());

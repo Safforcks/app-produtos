@@ -16,9 +16,8 @@ public class CategoriaServiceImpl implements CategoriaService {
     private final String arquivo = "categoria.txt";
 
     @Override
-    public void cadastrar(Categoria entidade) {
+    public void cadastrar(Categoria categoria) {
 
-        var categoria = new Categoria();
         categoria.setId(UUID.randomUUID());
 
         var scanner = new Scanner(System.in);
